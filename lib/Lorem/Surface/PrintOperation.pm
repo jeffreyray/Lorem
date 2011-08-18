@@ -3,7 +3,6 @@ package Lorem::Surface::PrintOperation;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Gtk2;
 
@@ -26,7 +25,9 @@ sub _build_gtk2_po {
     return $po;
 }
 
-method print ( $doc ) {
+sub print  {
+    
+    my ( $self, $doc ) = @_;
     
     my $po = $self->gtk2_po;
     
@@ -38,7 +39,7 @@ method print ( $doc ) {
         $doc->set_height( $print_context->get_height - 36);
         
         
-        #&{$doc->builder_func}( $doc, $cr );
+        &{$doc->builder_func}( $doc, $cr );
         
         my @pages = @{$doc->children};
         $po->set_n_pages( scalar @pages );

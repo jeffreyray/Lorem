@@ -5,7 +5,6 @@ our $VERSION = '0.01';
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Cairo;
 use Pango;
@@ -20,7 +19,7 @@ use Lorem::Element::Spacer;
 use Lorem::Stamp;
 use Lorem::Element::Table;
 use Lorem::Element::Text;
-use Lorem::Types qw( MaybeGiDocDoesStamp );
+use Lorem::Types qw( MaybeLoremDoesStamp );
 use Lorem::Util;
 
 
@@ -41,11 +40,11 @@ with 'Lorem::Role::ConstructsElement' => {
     name => 'page',
     function => sub {
         my $self = shift;
-        my $new  = Lorem::Element::Page->new( parent => $self, width => $self->width, height => $self->height, style => $self->style->clone );
-        #$new->set_margin_top( $self->margin_top );
-        #$new->set_margin_left( $self->margin_left );
-        #$new->set_margin_right( $self->margin_right );
-        #$new->set_margin_bottom( $self->margin_bottom );
+        my $new  = Lorem::Element::Page->new( parent => $self, width => $self->width, style => $self->style->clone );
+        $new->set_margin_top( $self->margin_top );
+        $new->set_margin_left( $self->margin_left );
+        $new->set_margin_right( $self->margin_right );
+        $new->set_margin_bottom( $self->margin_bottom );
         $new->set_header_margin( $self->header_margin );
         $new->set_footer_margin( $self->footer_margin );
         $new->set_header( $self->header->clone ) if $self->header;
@@ -65,61 +64,48 @@ has 'builder_func' => (
     reader => 'builder_func',
 );
 
+sub doc { $_[0] }
 
-
-#sub new_ps {
-#    my ($class, $w, $h) = @_;
-#    
-#    die 'usage: ' . __PACKAGE__ . '->new_pdf($width, $height) '
-#        if ! defined $w || ! defined $h;
-#    
-#    my $surface = Cairo::PsSurface->create ( 'output.pdf', $w, $h);
-#    my $self = $class->new( surface => $surface, width => $w, height => $h );
-#    return $self;
-#}
-
-method doc {
-    $self;
+sub inner_width {
+    $_[0]->width - $_[0]->margin_left - $_[0]->margin_right;
 }
 
-method inner_width {
-    $self->width - $self->margin_left - $self->margin_right;
+sub inner_height {
+    $_[0]->height - $_[0]->margin_top - $_[0]->margin_bottom;
 }
 
-method inner_height {
-    $self->height - $self->margin_top - $self->margin_bottom;
+sub margin_left_pos {
+    $_[0]->margin_left;
 }
 
-method margin_left_pos {
-    $self->margin_left;
+sub margin_right_pos {
+    $_[0]->width - $_[0]->margin_right;
 }
 
-method margin_right_pos {
-    $self->width - $self->margin_right;
+sub margin_top_pos {
+    $_[0]->margin_top;
 }
 
-method margin_top_pos {
-    $self->margin_top;
+sub margin_bottom_pos {
+    $_[0]->height - $_[0]->margin_bottom;
 }
 
-method margin_bottom_pos {
-    $self->height - $self->margin_bottom;
+sub margin_center_pos {
+    $_[0]->margin_left_pos + ( $_[0]->inner_width / 2 );
 }
 
-method margin_center_pos {
-    $self->margin_left_pos + ( $self->inner_width / 2 );
+sub imprint_header {
+    my ( $self, @args ) = @_;
+    $_[0]->header->imprint( $_[0], @args ) if $_[0]->header;
 }
 
-method imprint_header ( @args ) {
-    $self->header->imprint( $self, @args ) if $self->header;
+sub imprint_footer {
+    $_[0]->footer->imprint( $_[0] ) if $_[0]->footer;
 }
 
-method imprint_footer {
-    $self->footer->imprint( $self ) if $self->footer;
-}
-
-method draw_page ( $cr, Int $i ) {
-    $self->children->[$i]->imprint( $cr );
+sub draw_page{
+    my ( $self, $cr, $i ) = @_;
+    $_[0]->children->[$i]->imprint( $cr );
 }
 
 1;

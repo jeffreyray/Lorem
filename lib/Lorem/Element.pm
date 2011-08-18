@@ -7,7 +7,7 @@ use MooseX::Method::Signatures;
 
 use Scalar::Util qw( refaddr );
 
-use Lorem::Types qw( GiDocDocumentObject );
+use Lorem::Types qw( LoremDocumentObject );
 
 with 'Lorem::Role::HasSizeAllocation';
 with 'Lorem::Role::HasStyle';
@@ -24,7 +24,7 @@ has 'doc' => (
 
 has 'parent' => (
     is => 'rw',
-    isa => GiDocDocumentObject,
+    isa => LoremDocumentObject,
     trigger => sub {
         my $self = shift;
         $self->set_doc( $_[0] ? $_[0]->doc : undef );

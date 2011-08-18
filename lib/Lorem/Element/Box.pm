@@ -5,7 +5,7 @@ use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
 use MooseX::Method::Signatures;
 
-use Lorem::Types qw( MaybeGiDocDoesStamp );
+use Lorem::Types qw( MaybeLoremDoesStamp );
 extends 'Lorem::Element';
 
 with 'Lorem::Role::ConstructsElement' => { class => 'Lorem::Element::Div' };

@@ -1,18 +1,18 @@
 package Lorem::Role::HasMargin;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
 
 
-use Lorem::Types qw( GiDocStyleLength );
+use Lorem::Types qw( LoremStyleLength );
 
 has [qw(margin_left margin_right margin_top margin_bottom)] => (
     is => 'rw',
-    isa => GiDocStyleLength,
+    isa => LoremStyleLength,
     default => 0,
 );
 
-method _apply_margin_style ( $style ) {
+sub _apply_margin_style  {
+    my ( $self, $style ) = @_;
     $self->set_margin_left( $style->margin_left );
     $self->set_margin_right( $style->margin_right );
     $self->set_margin_top( $style->margin_top );

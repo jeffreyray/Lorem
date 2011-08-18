@@ -10,8 +10,8 @@ use Pango;
 
 with 'Lorem::Role::HasSizeAllocation';
 
-use Lorem::Constants qw( %GiDocStyleBorderWidth );
-use Lorem::Types qw( GiDocStyleBorderWidth GiDocStyleBorderStyle GiDocStyleColor );
+use Lorem::Constants qw( %LoremStyleBorderWidth );
+use Lorem::Types qw( LoremStyleBorderWidth LoremStyleBorderStyle LoremStyleColor );
 
 has 'parent' => (
     is => 'rw',
@@ -19,17 +19,17 @@ has 'parent' => (
 
 has 'width' => (
     is => 'rw',
-    isa =>  GiDocStyleBorderWidth,
+    isa =>  LoremStyleBorderWidth,
 );
 
 has 'style' => (
     is => 'rw',
-    isa => GiDocStyleBorderStyle,
+    isa => LoremStyleBorderStyle,
 );
 
 has 'color' => (
     is => 'rw',
-    isa => GiDocStyleColor,
+    isa => LoremStyleColor,
 );
 
 method imprint ( $cr! ) {
@@ -50,7 +50,7 @@ method size_allocate ( $cr!, Num $x1!, Num $y1!, Num $x2!, Num $y2!) {
 }
 
 method _cairo_width ( ) {
-    return $GiDocStyleBorderWidth{ $self->width };
+    return $LoremStyleBorderWidth{ $self->width };
 }
 
 

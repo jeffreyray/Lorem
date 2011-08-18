@@ -3,57 +3,57 @@ package Lorem::Role::Style::HasText;
 use Moose::Role;
 use MooseX::Method::Signatures;
 
-use Lorem::Types qw(GiDocStyleFontFamily GiDocStyleFontStyle GiDocStyleFontSize
-GiDocStyleFontWeight GiDocStyleFontVariant GiDocStyleTextAlign GiDocStyleTextAlign
-GiDocStyleTextDecoration GiDocStyleTextUnderline);
+use Lorem::Types qw(LoremStyleFontFamily LoremStyleFontStyle LoremStyleFontSize
+LoremStyleFontWeight LoremStyleFontVariant LoremStyleTextAlign LoremStyleTextAlign
+LoremStyleTextDecoration LoremStyleTextUnderline);
 
 
 
 has 'font_family' => (
     is => 'rw',
-    isa => GiDocStyleFontFamily,
+    isa => LoremStyleFontFamily,
     traits  => [qw/Inherit/],
 );
 
 has 'font_style' => (
     is => 'rw',
-    isa => GiDocStyleFontStyle,
+    isa => LoremStyleFontStyle,
     traits  => [qw/Inherit/],
 );
 
 has 'font_size' => (
     is => 'rw',
-    isa => GiDocStyleFontSize,
+    isa => LoremStyleFontSize,
     traits  => [qw/Inherit/],
 );
 
 has 'font_weight' => (
     is => 'rw',
-    isa => GiDocStyleFontWeight,
+    isa => LoremStyleFontWeight,
     traits  => [qw/Inherit/],
 );
 
 has 'font_variant' => (
     is => 'rw',
-    isa => GiDocStyleFontVariant,
+    isa => LoremStyleFontVariant,
     traits  => [qw/Inherit/],
 );
 
 has 'text_align' => (
     is => 'rw',
-    isa => GiDocStyleTextAlign,
+    isa => LoremStyleTextAlign,
     traits  => [qw/Inherit/],
 );
 
 has 'text_decoration' => (
     is => 'rw',
-    isa => GiDocStyleFontFamily,
+    isa => LoremStyleFontFamily,
     traits  => [qw/Inherit/],
 );
 
 has 'text_underline' => (
     is => 'rw',
-    isa => GiDocStyleTextUnderline,
+    isa => LoremStyleTextUnderline,
     traits  => [qw/Inherit/],
 );
 

@@ -4,11 +4,11 @@ use Moose::Role;
 use MooseX::Method::Signatures;
 
 
-use Lorem::Types qw( GiDocStyleLength );
+use Lorem::Types qw( LoremStyleLength );
 
 has [qw(padding_left padding_right padding_top padding_bottom)] => (
     is => 'rw',
-    isa => GiDocStyleLength,
+    isa => LoremStyleLength,
     default => 0,
 );
 

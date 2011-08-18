@@ -15,7 +15,7 @@ with 'Lorem::Role::Style::HasPadding';
 with 'Lorem::Role::Style::HasText';
 
 use Pango;
-use Lorem::Types qw( GiDocElement GiDocStyle GiDocStyleVerticalAlign );
+use Lorem::Types qw( LoremElement LoremStyle LoremStyleVerticalAlign );
 
 has 'color' => (
     is => 'rw',
@@ -24,7 +24,7 @@ has 'color' => (
 
 has 'vertical_align' => (
     is => 'rw',
-    isa => GiDocStyleVerticalAlign,
+    isa => LoremStyleVerticalAlign,
 );
 
 around BUILDARGS => sub {
@@ -48,7 +48,7 @@ method parse ( Str $input ) {
     $self->merge( $style );
 }
 
-method merge ( GiDocStyle $style ) {
+method merge ( LoremStyle $style ) {
 
     for my $att ( map { $self->meta->get_attribute( $_ ) } $self->meta->get_attribute_list ) {
         my $newvalue = $att->get_value( $style );

@@ -4,11 +4,11 @@ use Moose::Role;
 use MooseX::Method::Signatures;
 
 use Lorem::Style::Util qw( parse_margin );
-use Lorem::Types qw( GiDocStyleLength );
+use Lorem::Types qw( LoremStyleLength );
 
 has [qw(margin_left margin_right margin_top margin_bottom)] => (
     is => 'rw',
-    isa => GiDocStyleLength,
+    isa => LoremStyleLength,
     default => 0,
 );
 

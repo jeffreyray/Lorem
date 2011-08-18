@@ -11,7 +11,7 @@ use Cairo;
 use Pango;
 
 use Lorem::Element::Text;
-use Lorem::Types qw( GiDocText );
+use Lorem::Types qw( LoremText );
 
 
 extends 'Lorem::Element::Box';
@@ -20,21 +20,21 @@ extends 'Lorem::Element::Box';
 
 has 'left' => (
     is => 'rw',
-    isa => GiDocText,
+    isa => LoremText,
     required => 1,
     traits => [qw(Clone)],
 );
 
 has 'center' => (
     is => 'rw',
-    isa => GiDocText,
+    isa => LoremText,
     required => 1,
     traits => [qw(Clone)],
 );
 
 has 'right' => (
     is => 'rw',
-    isa => GiDocText,
+    isa => LoremText,
     required => 1,
     traits => [qw(Clone)],
 );

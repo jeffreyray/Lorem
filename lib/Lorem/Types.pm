@@ -2,122 +2,122 @@ package Lorem::Types;
 
 use MooseX::Types
     -declare => [ qw(
-GiDocAttrTextAlign
-GiDocElement
-GiDocText
-GiDocDoesStamp
-MaybeGiDocDoesStamp
-GiDocDocumentObject
-GiDocStyle
-GiDocStyleElementBorder
-GiDocStyleFontFamily
-GiDocStyleFontSize
-GiDocStyleFontStyle
-GiDocStyleFontWeight
-GiDocStyleFontVariant
-GiDocStyleBorderWidth
-GiDocStyleBorderStyle
-GiDocStyleColor
-GiDocStyleDimension
-GiDocStyleLength
-GiDocStyleRelativeLength
-GiDocStyleTextAlign
-GiDocStyleTextDecoration
-GiDocStyleTextUnderline
-GiDocStyleVerticalAlign
+LoremAttrTextAlign
+LoremElement
+LoremText
+LoremDoesStamp
+MaybeLoremDoesStamp
+LoremDocumentObject
+LoremStyle
+LoremStyleElementBorder
+LoremStyleFontFamily
+LoremStyleFontSize
+LoremStyleFontStyle
+LoremStyleFontWeight
+LoremStyleFontVariant
+LoremStyleBorderWidth
+LoremStyleBorderStyle
+LoremStyleColor
+LoremStyleDimension
+LoremStyleLength
+LoremStyleRelativeLength
+LoremStyleTextAlign
+LoremStyleTextDecoration
+LoremStyleTextUnderline
+LoremStyleVerticalAlign
 )];
 
 use MooseX::Types::Moose qw( Int Num Str );
 
-type GiDocDoesStamp,
+type LoremDoesStamp,
     where { $_ && $_->does('Lorem::Role::Stamp') };
 
-type MaybeGiDocDoesStamp,
+type MaybeLoremDoesStamp,
     where { ! defined $_ || $_->does('Lorem::Role::Stamp') };
 
-type GiDocDocumentObject,
+type LoremDocumentObject,
     where { $_ &&  $_->isa('Lorem::Element') || $_->isa('Lorem') };
 
 
 # elements
-class_type GiDocElement,
+class_type LoremElement,
     { class => 'Lorem::Element' };
     
-class_type GiDocText,
+class_type LoremText,
     { class => 'Lorem::Element::Text' };
 
-coerce GiDocText,
+coerce LoremText,
     from Str,
     via {  Lorem::Element::Text->new( content => $_ ) };
     
 # element attributes
-subtype GiDocAttrTextAlign,
+subtype LoremAttrTextAlign,
     as Str,
     where { $_ =~ /left|right|center/ };
  
 
 # style values
-class_type GiDocStyle,
+class_type LoremStyle,
     { class => 'Lorem::Style' };
 
-coerce GiDocStyle,
+coerce LoremStyle,
     from Str,
     via { 'Lorem::Style'->new( $_ ) };
 
-subtype GiDocStyleBorderWidth,
+subtype LoremStyleBorderWidth,
     as Str,
     where { $_ =~ /thin|medium|thick/ };
 
-subtype GiDocStyleBorderStyle,
+subtype LoremStyleBorderStyle,
     as Str,
     where { $_ =~ /none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset/ };
     
-type GiDocStyleDimension,
-    where { is_GiDocStyleLength($_) || is_GiDocStyleRelativeLength($_) };
+type LoremStyleDimension,
+    where { is_LoremStyleLength($_) || is_LoremStyleRelativeLength($_) };
   
-subtype GiDocStyleColor,
+subtype LoremStyleColor,
     as Str;  
 
-class_type GiDocStyleElementBorder,
+class_type LoremStyleElementBorder,
     { class => 'Lorem::Style::Element::Border' };   
 
-subtype GiDocStyleFontFamily,
+subtype LoremStyleFontFamily,
     as Str;
 
-subtype GiDocStyleFontSize,
+subtype LoremStyleFontSize,
     as Num;
     
-subtype GiDocStyleFontWeight,
+subtype LoremStyleFontWeight,
     as Str,
     where { $_ =~ /normal|bold|bolder|lighter/ };
 
-subtype GiDocStyleFontStyle,
+subtype LoremStyleFontStyle,
     as Str,
     where  { $_ =~ /normal|italic|oblique|inherit/ };
     
-type GiDocStyleLength,
+type LoremStyleLength,
     where { is_Num($_) || is_Str($_) && $_ =~ /\d+%/ };
 
-type GiDocStyleRelativeLength,
+type LoremStyleRelativeLength,
     where { is_Str($_) && $_ =~ /\d+%/ };
     
-subtype GiDocStyleFontVariant,
+subtype LoremStyleFontVariant,
     as Str,
     where  { $_ =~ /normal|small-caps|inherit/ };
 
-subtype GiDocStyleTextAlign,
+subtype LoremStyleTextAlign,
     as Str,
     where { $_ =~ /left|right|center|inherit/ };
 
-subtype GiDocStyleTextDecoration,
+subtype LoremStyleTextDecoration,
     as Str,
     where { $_ =~ /overline|line-through|underline|blink/ };
     
-subtype GiDocStyleTextUnderline,
+subtype LoremStyleTextUnderline,
     as Str,
     where  { $_ =~ /normal|small-caps|inherit/ };
     
-subtype GiDocStyleVerticalAlign,
+subtype LoremStyleVerticalAlign,
     as Str,
     where { $_ =~ /baseline|sub|super|top|text-top|middle|bottom|text-bottom|inherit/ };
 

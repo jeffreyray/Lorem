@@ -5,11 +5,11 @@ use MooseX::Method::Signatures;
 
 use Lorem::Style::Element::Border;
 
-use Lorem::Types qw( GiDocStyleElementBorder );
+use Lorem::Types qw( LoremStyleElementBorder );
 
 has [qw(border_left border_right border_top border_bottom)] => (
     is => 'rw',
-    isa => GiDocStyleElementBorder,
+    isa => LoremStyleElementBorder,
     default => sub { Lorem::Style::Element::Border->new },
 );
 

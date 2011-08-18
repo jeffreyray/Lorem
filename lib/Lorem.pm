@@ -1,10 +1,12 @@
 package Lorem;
 
+our $VERSION = '0.15';
+our $AUTHORITY = 'cpan:JHALLOCK';
+
 use Lorem::Document;
 use Lorem::Surface::Pdf;
 use Lorem::Surface::PrintOperation;
 
-our $VERSION = 0.15;
 
 sub new_document {
     Lorem::Document->new;

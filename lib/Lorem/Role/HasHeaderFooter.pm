@@ -1,7 +1,7 @@
 package Lorem::Role::HasHeaderFooter;
 use Moose::Role;
 
-use Lorem::Types qw( MaybeGiDocDoesStamp );
+use Lorem::Types qw( MaybeLoremDoesStamp );
 
 has 'header' => (
     is => 'rw',

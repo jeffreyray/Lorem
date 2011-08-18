@@ -2,12 +2,12 @@ package Lorem::Role::HasStyle;
 use Moose::Role;
 use MooseX::Clone;
 
-use Lorem::Types qw( GiDocStyle );
+use Lorem::Types qw( LoremStyle );
 use Lorem::Style;
 
 has 'style' => (
     is => 'rw',
-    isa => GiDocStyle,
+    isa => LoremStyle,
     traits => [qw(Clone)],
     lazy_build => 1,
     coerce => 1,
@@ -15,7 +15,7 @@ has 'style' => (
 
 has 'merged_style' => (
     is => 'rw',
-    isa => GiDocStyle,
+    isa => LoremStyle,
     traits => [qw(NoClone)],
     lazy_build => 1,
 );
