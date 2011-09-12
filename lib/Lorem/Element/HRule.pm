@@ -3,17 +3,14 @@ package Lorem::Element::HRule;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Cairo;
 use Pango;
 
-use Lorem::Types qw(  );
-
 extends 'Lorem::Element::Box';
 
-
-method imprint (  $cr! )  {
+sub imprint {
+    my ( $self, $cr ) = @_;
     my $allocated = $self->size_allocation;
     
     die 'you must call size_allocate on this element before imprinting it'
@@ -25,13 +22,16 @@ method imprint (  $cr! )  {
     $cr->stroke;
 }
 
-method size_request (  $cr! )  {
+sub size_request {
+    my ( $self, $cr ) = @_;
     my $w  = defined $self->width  ? $self->width  : 100 ;
     my $h  = defined $self->height ? $self->height : 1 ;
     return { width => $w, height => $h };
 }
 
-method size_allocate ( $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
+sub size_allocate {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     my %allocation = (width => $width, height => $height, x => $x, y => $y);
     $self->set_size_allocation( \%allocation );
 }

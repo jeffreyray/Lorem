@@ -13,7 +13,7 @@ use Lorem::Util qw( in2pt pt2in );
 
 
 my $doc    = Lorem->new_document;
-isa_ok $doc, 'Lorem:Document';
+isa_ok $doc, 'Lorem::Document';
 
 
 

@@ -3,7 +3,6 @@ package Lorem::Style::Element;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Scalar::Util qw( refaddr );
 

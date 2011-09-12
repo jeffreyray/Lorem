@@ -1,7 +1,6 @@
 package Lorem::Role::Style::HasText;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
 
 use Lorem::Types qw(LoremStyleFontFamily LoremStyleFontStyle LoremStyleFontSize
 LoremStyleFontWeight LoremStyleFontVariant LoremStyleTextAlign LoremStyleTextAlign
@@ -57,7 +56,8 @@ has 'text_underline' => (
     traits  => [qw/Inherit/],
 );
 
-method attr_list ( ) {
+sub attr_list {
+    my ( $self ) = @_;
     my $list = Pango::AttrList->new;
     #$list->insert( Pango::Color->parse( $self->color ) );
     

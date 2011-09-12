@@ -3,7 +3,6 @@ package Lorem::Surface::Pdf;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 extends 'Lorem::Surface';
 
 use Gtk2;
@@ -26,7 +25,8 @@ has 'file_name' => (
 );
 
 
-method print ( $doc ) {
+sub print {
+    my ( $self, $doc ) = @_;
     my $surface = Cairo::PdfSurface->create ( $self->file_name, $self->width, $self->height );
     $doc->set_width( $self->width );
     $doc->set_height( $self->height );

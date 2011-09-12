@@ -1,6 +1,6 @@
 package Lorem;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Lorem::Document;

@@ -2,7 +2,14 @@
 use warnings;
 use strict;
 
-use Test::More qw(no_plan);
+use Test::More;
+if( ! $ENV{AUTHOR_TEST} ) {
+    plan skip_all => 'Tests run for module author only.';
+}
+else {
+    plan tests => 1;
+}
+
 
 use Gtk2 '-init';
 

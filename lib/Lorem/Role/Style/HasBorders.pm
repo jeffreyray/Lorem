@@ -1,7 +1,6 @@
 package Lorem::Role::Style::HasBorders;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
 
 use Lorem::Style::Util qw( parse_border );
 
@@ -72,7 +71,8 @@ around BUILDARGS => sub {
     return $class->$orig(%return);
 };
 
-method set_border ( Str $input ) {
+sub set_border {
+    my ( $self, $input ) = @_;
     my $parsed = parse_border $input;
     
     if ( defined $parsed->{width} ) {
@@ -95,7 +95,8 @@ method set_border ( Str $input ) {
     }    
 }
 
-method set_border_bottom ( Str $input ) {
+sub set_border_bottom  {
+    my ( $self, $input ) = @_;
     my ($width, $border_style, $color) = $self->_parse_border_input( $input );
     defined $width && $self->set_border_bottom_width( $width );
     defined $border_style && $self->set_border_bottom_style( $border_style );
@@ -103,48 +104,57 @@ method set_border_bottom ( Str $input ) {
 }
 
 
-method set_border_left ( Str $input ) {
+sub set_border_left  {
+    my ( $self, $input ) = @_;
     my ($width, $border_style, $color) = $self->_parse_border_input( $input );
     defined $width && $self->set_border_left_width( $width );
     defined $border_style && $self->set_border_left_style( $border_style );
     defined $color &&  $self->set_border_left_color( $color );   
 }
 
-method set_border_right ( Str $input ) {
+sub set_border_right  {
+    my ( $self, $input ) = @_;
     my ($width, $border_style, $color) = $self->_parse_border_input( $input );
     defined $width && $self->set_border_right_width( $width );
     defined $border_style && $self->set_border_right_style( $border_style );
     defined $color &&  $self->set_border_right_color( $color ); 
 }
 
-method set_border_top ( Str $input ) {
+sub set_border_top  {
+    my ( $self, $input ) = @_;
     my ($width, $border_style, $color) = $self->_parse_border_input( $input );
     defined $width && $self->set_border_top_width( $width );
     defined $border_style && $self->set_border_top_style( $border_style );
     defined $color &&  $self->set_border_top_color( $color ); 
 }
 
-method set_border_color ( Str $color ) {
-    $self->set_border_bottom_color( $color );
-    $self->set_border_left_color( $color );
-    $self->set_border_right_color( $color );
-    $self->set_border_top_color( $color );
+sub set_border_color  {
+    my ( $self, $input ) = @_;
+    $self->set_border_bottom_color( $input );
+    $self->set_border_left_color( $input );
+    $self->set_border_right_color( $input );
+    $self->set_border_top_color( $input );
 }
 
-method set_border_style ( Str $border_style ) {
-    $self->set_border_bottom_style( $border_style );
-    $self->set_border_left_style( $border_style );
-    $self->set_border_right_style( $border_style );
-    $self->set_border_top_style( $border_style );
+sub set_border_style  {
+    my ( $self, $input ) = @_;
+    $self->set_border_bottom_style( $input );
+    $self->set_border_left_style( $input );
+    $self->set_border_right_style( $input );
+    $self->set_border_top_style( $input );
+}
+
+sub set_border_width  {
+    my ( $self, $input ) = @_;
+    $self->set_border_bottom_width( $input );
+    $self->set_border_left_width( $input );
+    $self->set_border_right_width( $input );
+    $self->set_border_top_width( $input );
 }
 
 
-method set_border_width( Str $width ) {
-    $self->set_border_bottom_width( $width );
-    $self->set_border_left_width( $width );
-    $self->set_border_right_width( $width );
-    $self->set_border_top_width( $width );
-}
+
+
 
 
 

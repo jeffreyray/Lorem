@@ -1,7 +1,6 @@
 package Lorem::Role::Style::HasPadding;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
 
 use Lorem::Style::Util qw( parse_padding );
 use Lorem::Types qw( LoremStyleLength );
@@ -35,7 +34,8 @@ around BUILDARGS => sub {
 };
 
 
-method set_padding ( Str $input ) {
+sub set_padding {
+    my ( $self, $input ) = @_;
     my $padding = parse_padding $input;
     $self->set_padding_left( $padding->{left} );
     $self->set_padding_right( $padding->{right} );

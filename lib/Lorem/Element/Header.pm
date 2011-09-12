@@ -3,8 +3,6 @@ package Lorem::Element::Header;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
-
 with 'MooseX::Clone';
 
 use Cairo;
@@ -68,7 +66,9 @@ sub BUILDARGS {
 
 
 
-method size_allocate (  $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
+sub size_allocate  {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     my %allocation = (width => $width, height => $height, x => $x, y => $y);
     $self->left->size_allocate( $cr, $x, $y, $width, $height);
     $self->center->size_allocate( $cr, $x, $y, $width, $height);
@@ -77,7 +77,9 @@ method size_allocate (  $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
 }
 
 
-method imprint (  $cr! )  {
+sub imprint {
+    my ( $self, $cr ) = @_;
+    
     my $parent = $self->parent;
     my ($te, $xpos, $ypos);
     

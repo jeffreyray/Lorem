@@ -2,7 +2,6 @@ package Lorem::Style;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Lorem::Meta::Attribute::Trait::Inherit;
 use Lorem::Style::Util qw( parse_style );
@@ -41,14 +40,16 @@ around BUILDARGS => sub {
 };
 
 
-method parse ( Str $input ) {
+sub parse {
+    my ( $self, $input ) = @_;
     my $parsed = parse_style $input;
     
     my $style = Lorem::Style->new( %{$parsed} );
     $self->merge( $style );
 }
 
-method merge ( LoremStyle $style ) {
+sub merge {
+    my ( $self, $style ) = @_;
 
     for my $att ( map { $self->meta->get_attribute( $_ ) } $self->meta->get_attribute_list ) {
         my $newvalue = $att->get_value( $style );

@@ -3,7 +3,6 @@ package Lorem::Style::Element::Border;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Cairo;
 use Pango;
@@ -32,7 +31,8 @@ has 'color' => (
     isa => LoremStyleColor,
 );
 
-method imprint ( $cr! ) {
+sub imprint {
+    my ( $self, $cr ) = @_;
     my $coords = $self->size_allocation;
    
     if ( $self->style ne 'none' ) {
@@ -44,39 +44,15 @@ method imprint ( $cr! ) {
     }
 }
 
-method size_allocate ( $cr!, Num $x1!, Num $y1!, Num $x2!, Num $y2!) {
+sub size_allocate  {
+    my ( $self, $cr, $x1, $y1, $x2, $y2 ) = @_;
     my %allocation = ( x1 => $x1, y1 => $y1, x2 => $x2, y2 => $y2 );
     $self->set_size_allocation( \%allocation );
 }
 
-method _cairo_width ( ) {
+sub _cairo_width {
+    my ( $self ) = @_;
     return $LoremStyleBorderWidth{ $self->width };
 }
-
-
-
-#method imprint (  $cr! )  {
-#    my $allocated = $self->size_allocation;
-#    
-#    die 'you must call size_allocate on this element before imprinting it'
-#        if ! $allocated;
-#    
-#    $cr->set_line_width( $allocated->{height} );
-#    $cr->move_to( $allocated->{x}, $allocated->{y} );
-#    $cr->line_to( $allocated->{x} + $allocated->{width}, $allocated->{y} );
-#    $cr->stroke;
-#}
-#
-#method size_request (  $cr! )  {
-#    my $w  = defined $self->width  ? $self->width  : 100 ;
-#    my $h  = defined $self->height ? $self->height : 1 ;
-#    return { width => $w, height => $h };
-#}
-#
-#method size_allocate ( $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
-#    my %allocation = (width => $width, height => $height, x => $x, y => $y);
-#    $self->set_size_allocation( \%allocation );
-#}
-
 
 1;

@@ -3,7 +3,6 @@ package Lorem::Element::Inline;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Lorem::Types qw( MaybeLoremDoesStamp );
 extends 'Lorem::Element';
