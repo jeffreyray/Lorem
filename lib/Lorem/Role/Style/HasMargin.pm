@@ -1,15 +1,15 @@
 package Lorem::Role::Style::HasMargin;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
 
 use Lorem::Style::Util qw( parse_margin );
 use Lorem::Types qw( LoremStyleLength );
+use MooseX::Types::Moose qw( Undef );
 
 has [qw(margin_left margin_right margin_top margin_bottom)] => (
     is => 'rw',
-    isa => LoremStyleLength,
-    default => 0,
+    isa => LoremStyleLength|Undef,
+    default => undef,
 );
 
 around BUILDARGS => sub {
@@ -34,7 +34,9 @@ around BUILDARGS => sub {
     return $class->$orig(%return);
 };
 
-method _parse_margin_input ( Str $input ) {
+sub _parse_margin_input {
+    my ( $self, $input ) = @_;
+    
     my @input = $input =~ /^\s*(\d+)?\s*(\d+)?\s*(\d+)?\s*(\d+)?\s*$/;
 
     my %parsed;
@@ -55,7 +57,8 @@ method _parse_margin_input ( Str $input ) {
 }
 
 
-method set_margin ( Str $input ) {
+sub set_margin  {
+    my ( $self, $input ) = @_;
     my $margin = $self->_parse_margin_input( $input );
     $self->set_margin_left( $margin->{left} );
     $self->set_margin_right( $margin->{right} );

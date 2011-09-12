@@ -1,8 +1,6 @@
 package Lorem::Role::HasBorders;
 
 use Moose::Role;
-use MooseX::Method::Signatures;
-
 use Lorem::Style::Element::Border;
 
 use Lorem::Types qw( LoremStyleElementBorder );
@@ -13,7 +11,8 @@ has [qw(border_left border_right border_top border_bottom)] => (
     default => sub { Lorem::Style::Element::Border->new },
 );
 
-method _imprint_borders ( $cr! ) {
+sub _imprint_borders {
+    my ( $self, $cr ) = @_;
     $self->border_left->imprint ( $cr );
     $self->border_right->imprint ( $cr );
     $self->border_top->imprint ( $cr );
@@ -22,7 +21,8 @@ method _imprint_borders ( $cr! ) {
 
 
 
-method _apply_border_style ( $style ) {
+sub _apply_border_style {
+    my ( $self, $style ) = @_;
     $self->border_left->set_color( $style->border_left_color );
     $self->border_left->set_style( $style->border_left_style );
     $self->border_left->set_width( $style->border_left_width );
@@ -37,11 +37,11 @@ method _apply_border_style ( $style ) {
     $self->border_bottom->set_width( $style->border_bottom_width );
 }
 
-method _allocate_borders ( $cr!, Num $x!, Num $y!, Num $width!, Num $height! ) {
-        
+sub _allocate_borders  {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
     my $x1 = $x + $self->margin_left;
     my $y1 = $y + $self->margin_top;
-    my $x2 = $x + $width - $self->margin_left - $self->margin_right;
+    my $x2 = $x + $width - $self->margin_right;   
     my $y2 = $y1;
     my $x3 = $x2;
     my $y3 = $y1 + $height - $self->margin_top - $self->margin_bottom;

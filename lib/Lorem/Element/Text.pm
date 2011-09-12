@@ -3,7 +3,6 @@ package Lorem::Element::Text;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 with 'MooseX::Clone';
 
@@ -39,12 +38,14 @@ sub _on_set_parent {
     my $self = shift;
 }
 
-method _layout ( $cr! ) {
+sub _layout {
+    my ( $self, $cr ) = @_;
     $self->_set_layout( $self->_build__layout( $cr ) ) if ! $self->_has_layout;
     return $self->_get_layout;
 }
 
-method _build__layout (  $cr! )  {  
+sub _build__layout {
+    my ( $self, $cr ) = @_;
     my $layout = Pango::Cairo::create_layout( $cr );
     $self->_set_layout( $layout );
     
@@ -58,10 +59,11 @@ method _build__layout (  $cr! )  {
     return $layout;
 }
 
-method imprint (  $cr! )  {
+sub imprint {
+    my ( $self, $cr ) = @_;
+    confess "must pass a context to 'imprint'" if ! $cr;
+    
     my $allocated = $self->size_allocation;
-    
-    
     
     my $layout = $self->_layout( $cr );
     #$layout->set_width( $allocated->{width} * Pango->scale );
@@ -69,12 +71,13 @@ method imprint (  $cr! )  {
     Pango::Cairo::show_layout( $cr, $layout );
 }
 
-method size_request (  $cr!, $w? )  {
+sub size_request {
+    my ( $self, $cr, $w ) = @_;
+    
     my $layout = $self->_layout ( $cr );
     
     my $te = $layout->get_extents;
     # my $w  = defined $self->width  ? $self->width  : defined $self->parent->inner_width ? $self->parent->inner_width : $te->{width} / Pango->scale;
-    
     
     if ( ! defined $w ) {
         if ( defined $self->width ) {
@@ -87,7 +90,6 @@ method size_request (  $cr!, $w? )  {
             $w = $te->{width} / Pango->scale
         }
     }
-
     
     #
     ## set the layout width now so we can figure out what the height is
@@ -100,7 +102,9 @@ method size_request (  $cr!, $w? )  {
     return { width => $w, height => $h };
 }
 
-method size_allocate (  $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
+sub size_allocate {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     #$width  = $self->parent->width  if $self->parent->width;
     #$height = $self->parent->height if $self->parent->height;
     
@@ -121,7 +125,8 @@ method size_allocate (  $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
     $self->set_size_allocation( \%allocation );
 }
 
-method _apply_style_to_layout ( $additional_atts ) {
+sub _apply_style_to_layout  {
+    my ( $self, $additional_atts ) = @_;
     my $layout = $self->_get_layout;
     my $style  = $self->merged_style;
     

@@ -3,7 +3,6 @@ package Lorem::Element::Box;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Lorem::Types qw( MaybeLoremDoesStamp );
 extends 'Lorem::Element';
@@ -20,13 +19,15 @@ with 'Lorem::Role::HasBorders';
 
 
 
-method imprint (  $cr! )  {
+sub imprint {
+    my ( $self, $cr ) = @_;
     $_->imprint( $cr ) for ( @{ $self->children } );
     $_->_imprint_borders ( $cr );
 }
 
 
-method size_request (  $cr! )  {
+sub size_request {
+    my ( $self, $cr ) = @_;
     $self->apply_style( $self->merged_style );
     
     my $child_req = $self->child_size_request( $cr );
@@ -48,7 +49,8 @@ method size_request (  $cr! )  {
     return { width => $w, height => $h };
 }
 
-method child_size_request ( $cr! ) {
+sub child_size_request {
+    my ( $self, $cr ) = @_;
     my ( $w, $h ) = ( 0, 0 );
     
     for my $child ( @{ $self->children }) {
@@ -60,22 +62,25 @@ method child_size_request ( $cr! ) {
     return { width => $w, height => $h };
 }
 
-method size_allocate ( $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
-
+sub size_allocate {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     my %allocation = (width => $width, height => $height, x => $x, y => $y);
     $self->set_size_allocation( \%allocation );
     
     my $cx = $x + $self->padding_left + $self->margin_left;
     my $cy = $y + $self->padding_top + $self->margin_top;
-    my $cwidth  = $width - $self->padding_left - $self->padding_right;
-    my $cheight = $height - $self->padding_top - $self->padding_bottom;
+    my $cwidth  = $width - $self->padding_left - $self->padding_right - $self->margin_left - $self->margin_right;
+    my $cheight = $height - $self->padding_top - $self->padding_bottom - $self->margin_top - $self->margin_bottom;
     
     
     $self->_allocate_borders( $cr, $x, $y, $width, $height );
     $self->child_size_allocate( $cr, $cx, $cy, $cwidth, $cheight );
 }
 
-method child_size_allocate ( $cr, Num $x, Num $y, Num $width, Num $height ) {
+sub child_size_allocate {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     for my $child ( @{ $self->children } ) {
         if ( $child->isa('Lorem::Element::Inline') ) {
             my $requistion = $child->size_request( $cr, $width );
@@ -90,30 +95,27 @@ method child_size_allocate ( $cr, Num $x, Num $y, Num $width, Num $height ) {
     }
 }
 
-method apply_style ( $style ) {
+sub apply_style {
+    my ( $self, $style ) = @_;
     $self->_apply_margin_style( $style );
     $self->_apply_dimension_style( $style );
     $self->_apply_border_style( $style );
     $self->_apply_padding_style( $style );
 }
 
-method inner_width ( ) {
+sub inner_width {
+    my ( $self ) = @_;
+    
     defined $self->width ?
-    $self->width
-    - $self->padding_left
-    - $self->padding_right
-    - $self->margin_left
-    - $self->margin_right
+    $self->width - $self->padding_left - $self->padding_right - $self->margin_left - $self->margin_right
     : undef;
 }
 
-method inner_height ( ) {
+sub inner_height {
+    my ( $self ) = @_;
+    
     defined $self->height ?
-    $self->height
-    - $self->padding_top
-    - $self->padding_bottom
-    - $self->margin_top
-    - $self->margin_bottom
+    $self->height - $self->padding_top - $self->padding_bottom - $self->margin_top - $self->margin_bottom
     : undef;
 }
 

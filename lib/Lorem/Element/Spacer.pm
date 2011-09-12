@@ -2,8 +2,6 @@ package Lorem::Element::Spacer;
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;
-use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Cairo;
 use Pango;
@@ -11,22 +9,27 @@ use Pango;
 
 extends 'Lorem::Element::Box';
 
-method imprint (  $cr! )  {
-    my $allocated = $self->size_allocation;
+sub imprint {
+    my ( $self, $cr ) = @_;
+    confess 'you must supply a contextt' if ! $cr;
     
-    die 'you must call size_allocate on this element before imprinting it'
-        if ! $allocated;
+    my $allocated = $self->size_allocation;
+    confess 'you must call size_allocate on this element before imprinting it' if ! $allocated;
     
     for my $c ( @{$self->children} ) {
         $c->imprint( $cr );
     }
 }
 
-method size_request (  $cr! )  {
+sub size_request  {
+    my ( $self, $cr ) = @_;
+    confess 'you must supply a contextt' if ! $cr;
+    
     return { width => 1, height => $self->height };
 }
 
-method size_allocate ( $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
+sub size_allocate {
+    my ( $self, $x, $y, $width, $height ) = @_;
     my %allocation = (width => $width, height => $height, x => $x, y => $y);
     $self->set_size_allocation( \%allocation );
 }

@@ -3,7 +3,6 @@ package Lorem::Element::TableRow;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Cairo;
 use Pango;
@@ -22,20 +21,10 @@ after apply_style => sub {
     $self->set_width( $self->parent->width ) if $self->parent->width;
 };
 
-#method size_request (  $cr! )  {
-#        
-#    $self->apply_style( $self->merged_style );
-#    
-#    my $child_req = $self->child_size_request( $cr );
-#    
-#    my ( $w, $h ) = ( $child_req->{width}, $child_req->{height} );
-#    
-#    $w = $self->parent->width if $self->parent->width;
-#    
-#    return { width => $w, height => $h };
-#}
 
-method child_size_request ( $cr! ) {
+sub child_size_request {
+    my ( $self, $cr ) = @_;
+    
     my ( $w, $h ) = ( 0, 0 );
     
     for my $cell ( @{ $self->children } ) {
@@ -47,23 +36,10 @@ method child_size_request ( $cr! ) {
     return { width => $w, height => $h };
 }
 
-#method size_allocate ( $cr!, Num $x!, Num $y!, Num $width!, Num $height!) {
-#
-#    my %allocation = (width => $width, height => $height, x => $x, y => $y);
-#    $self->set_size_allocation( \%allocation );
-#    
-#    $self->_allocate_borders( $cr, $x, $y, $width, $height );
-#    
-#    for my $cell ( @{ $self->children } ) {
-#        my $csize = $cell->size_request( $cr );
-#        $cell->size_allocate( $cr, $x, $y, $csize->{width}, $height );
-#        $x += $csize->{width};
-#    }
-#    
-#    
-#}
 
-method child_size_allocate ( $cr, Num $x, Num $y, Num $width, Num $height ) {
+sub child_size_allocate {
+    my ( $self, $cr, $x, $y, $width, $height ) = @_;
+    
     for my $cell ( @{ $self->children } ) {
         my $csize = $cell->size_request( $cr );
         $cell->size_allocate( $cr, $x, $y, $csize->{width}, $height );

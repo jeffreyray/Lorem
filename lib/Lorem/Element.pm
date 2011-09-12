@@ -3,7 +3,6 @@ package Lorem::Element;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Scalar::Util qw( refaddr );
 
@@ -47,10 +46,15 @@ has 'children' => (
     }
 );
 
-method append_element ( Lorem::Element $element ) {
-    $element->set_parent( $self );
-    $self->_add_child( $element );
-    return $element;
+sub append_element {
+    my ( $self, @elements ) = @_;
+    
+    for my $e ( @elements ) {
+        $e->set_parent( $self );
+        $self->_add_child( $e );
+    }
+    
+    return @elements;
 }
 
 sub _on_set_parent {
