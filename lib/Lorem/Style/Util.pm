@@ -14,7 +14,7 @@ sub parse_style {
     my @pairs = split /;/, $input;
     
     for ( @pairs ) {
-        next if /^\s+$/; 
+        next if /^\s*$/; 
         my ( $attr, $value ) = split /:/, $_;
         $attr =~ s/-/_/g;
         $_ =~ s/^\s*//g for $attr, $value;
