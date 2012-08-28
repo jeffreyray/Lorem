@@ -1,6 +1,7 @@
 package Lorem::Role::ConstructsElement;
 
 use MooseX::Role::Parameterized;
+use MooseX::SemiAffordanceAccessor;
 
 parameter name => (
     isa      => 'Str',

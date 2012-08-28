@@ -1,5 +1,7 @@
 package Lorem::Role::HasCoordinates;
+
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 has 'x' => (
     is => 'rw',

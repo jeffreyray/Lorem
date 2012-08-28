@@ -6,9 +6,11 @@ use Lorem::Util qw( in2pt );
 
 my $doc = Lorem->new_document;
 
+$doc->style->parse( 'margin: 50;' );
+
 my $page = $doc->new_page( style => 'align: center' );
 
-my $table = $page->new_table( style => 'border: 3px solid black;' );
+my $table = $page->new_table( style => 'border: thick solid black;' );
 
 my $puzzle = [
     [qw( x 8 x x 4 9 6 1 x) ],
@@ -22,12 +24,12 @@ my $puzzle = [
     [qw( x 2 8 5 7 x x 6 x) ],
 ];
 
-
 for my $rowx ( 0..8 ) {
     my $row = $table->new_row( );
     
+
     if ( $rowx == 2 || $rowx == 5 ) {
-        $row->style->parse( 'border-bottom-style: solid;' );
+        $row->style->parse( 'border-bottom: thick solid;' );
     }
     else {
         $row->style->parse( 'border-bottom-style: solid;' );
@@ -38,7 +40,7 @@ for my $rowx ( 0..8 ) {
         $cell->new_text( content => $puzzle->[$rowx][$colx] ) if $puzzle->[$rowx][$colx] ne 'x';
         
         if ( $colx == 2 || $colx == 5 ) {
-            $cell->style->parse( 'border-right-style: solid; ' )
+            $cell->style->parse( 'border-right: thick solid; ' )
         }
         else {
             $cell->style->parse( 'border-right-style: solid; ' )

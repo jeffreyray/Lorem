@@ -1,5 +1,9 @@
 Revision history for perl module Lorem
 
+0.18 Tue Aug 28 2012
+- fixed vertical alignment
+- updated documentation
+
 0.17
 - added &Lorem::Util::EscapeEntity
 

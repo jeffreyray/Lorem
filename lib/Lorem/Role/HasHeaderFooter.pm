@@ -2,6 +2,7 @@ package Lorem::Role::HasHeaderFooter;
 use Moose::Role;
 
 use Lorem::Types qw( MaybeLoremDoesStamp );
+use MooseX::SemiAffordanceAccessor;
 
 has 'header' => (
     is => 'rw',

@@ -95,7 +95,7 @@ sub size_request {
     ## set the layout width now so we can figure out what the height is
     $layout->set_width( $w * Pango->scale );
     
-    # no get the extents again to figure out the height
+    # now get the extents again to figure out the height
     $te = $layout->get_extents;
     my $h  = defined $self->height ? $self->height : $te->{height} / Pango->scale;
     
@@ -107,13 +107,12 @@ sub size_allocate {
     
     #$width  = $self->parent->width  if $self->parent->width;
     #$height = $self->parent->height if $self->parent->height;
-    
-    
+   
     # adjust for vertical alignment
     if ( $self->parent->size_allocation ) {
         my $pheight = $self->parent->size_allocation->{height};
-        
-        if ( $self->merged_style->vertical_align && $self->merged_style->vertical_align eq 'middle' && $pheight > $height ) {
+
+        if ( $self->parent->merged_style->vertical_align && $self->parent->merged_style->vertical_align eq 'middle' && $pheight > $height ) {
             my $delta = $pheight - $height;
             $y += $delta / 2 ;
         }

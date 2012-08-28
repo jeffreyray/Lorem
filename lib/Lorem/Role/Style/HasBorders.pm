@@ -1,6 +1,7 @@
 package Lorem::Role::Style::HasBorders;
 
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Style::Util qw( parse_border );
 

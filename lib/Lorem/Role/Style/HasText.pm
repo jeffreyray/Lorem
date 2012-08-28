@@ -1,6 +1,7 @@
 package Lorem::Role::Style::HasText;
 
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Types qw(LoremStyleFontFamily LoremStyleFontStyle LoremStyleFontSize
 LoremStyleFontWeight LoremStyleFontVariant LoremStyleTextAlign LoremStyleTextAlign

@@ -8,7 +8,6 @@ use MooseX::StrictConstructor;
 use Cairo;
 use Pango;
 
-use Lorem::Types qw(  );
 use Lorem::Element::TableRow;
 extends 'Lorem::Element::Box';
 with 'Lorem::Role::HasHeaderFooter';
@@ -31,8 +30,10 @@ sub imprint {
     $self->size_allocate( $cr, 0, 0, $self->parent->width, $self->parent->height );
     $self->_imprint_borders ( $cr );
     
-    $self->header->size_allocate( $cr, 0, 0, $self->parent->width, $self->parent->height );
-    $self->header->imprint( $cr ) if $self->header;
+    if ( $self->header ) {
+        $self->header->size_allocate( $cr, 0, 0, $self->parent->width, $self->parent->height );
+        $self->header->imprint( $cr ) if $self->header;
+    }
     
     $_->imprint( $cr ) for ( @{ $self->children } );
     

@@ -1,6 +1,7 @@
 package Lorem::Role::Style::HasPadding;
 
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Style::Util qw( parse_padding );
 use Lorem::Types qw( LoremStyleLength );

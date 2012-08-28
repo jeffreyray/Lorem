@@ -1,6 +1,8 @@
 package Lorem::Role::HasStyle;
+
 use Moose::Role;
 use MooseX::Clone;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Types qw( LoremStyle );
 use Lorem::Style;

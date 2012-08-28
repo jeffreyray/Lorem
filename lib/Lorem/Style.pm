@@ -18,7 +18,7 @@ use Lorem::Types qw( LoremElement LoremStyle LoremStyleVerticalAlign );
 
 has 'color' => (
     is => 'rw',
-    traits  => [qw/Inherit/],
+    traits  => [qw(Inherit)],
 );
 
 has 'vertical_align' => (

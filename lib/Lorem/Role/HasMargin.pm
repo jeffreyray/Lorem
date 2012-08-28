@@ -1,6 +1,7 @@
 package Lorem::Role::HasMargin;
 
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 
 use Lorem::Types qw( LoremStyleLength );

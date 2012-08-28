@@ -1,6 +1,7 @@
 package Lorem::Role::Style::HasDimensions;
 
 use Moose::Role;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Types qw( LoremStyleDimension );
 use MooseX::Types::Moose qw( Undef );

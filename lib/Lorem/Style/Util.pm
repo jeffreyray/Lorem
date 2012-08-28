@@ -22,6 +22,7 @@ sub parse_style {
         $parsed{ $attr } = $value;
     }
     
+   
     return \%parsed;
 }
 

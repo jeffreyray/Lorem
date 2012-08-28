@@ -2,6 +2,7 @@ package Lorem::Role::HasBorders;
 
 use Moose::Role;
 use Lorem::Style::Element::Border;
+use MooseX::SemiAffordanceAccessor;
 
 use Lorem::Types qw( LoremStyleElementBorder );
 
@@ -49,10 +50,15 @@ sub _allocate_borders  {
     my $y4 = $y3;
     
     
-    $self->border_top->size_allocate ( $cr, $x1, $y1, $x2, $y2 );
+    my $delta_left = 0;
+    #$delta_left += $self->border_left->width / 2 if $self->border_left->width;
+    #
+    $self->border_top->size_allocate ( $cr, $x1 - $delta_left, $y1, $x2, $y2 );
+    
+    
     $self->border_right->size_allocate( $cr, $x2, $y2, $x3, $y3 );
     $self->border_bottom->size_allocate( $cr, $x4, $y4, $x3, $y3 );
-    $self->border_left->size_allocate( $cr, $x1, $y1, $x4, $y4 );
+    $self->border_left->size_allocate( $cr, $x1 - $delta_left, $y1, $x4, $y4 );
 }
 
 

@@ -1,6 +1,6 @@
 package Lorem;
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Lorem::Document;
@@ -34,12 +34,6 @@ Lorem - Document creation
   $doc = Lorem->new_document;
 
   $doc->new_header( center => 'Lorem Document' );
-
-  $doc->build( sub {
-
-  $page = $doc->new_page;
-
-  $page->new_text( content => 'Lorem Ipsum' );
 
 
   # save to pdf file
@@ -103,9 +97,10 @@ Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
 
 =head1 COPYRIGHT
 
-    Copyright (c) 2010 Jeffrey Ray Hallock. All rights reserved.
-    This program is free software; you can redistribute it and/or
-    modify it under the same terms as Perl itself.
+This software is Copyright (c) 2010-2012 Jeffrey Ray Hallock.
 
-=cut
+This is free software, licensed under:
+
+   The Artistic License 2.0 (GPL Compatible)
+
 
