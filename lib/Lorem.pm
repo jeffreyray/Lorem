@@ -1,6 +1,6 @@
 package Lorem;
 
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Lorem::Document;
@@ -64,7 +64,7 @@ Lorem - Document creation
 
 L<Lorem> is a library for creating/displaying/printing documents.
 
-=head1 BETA VERSION
+=head1 ALPHA VERSION
 
 *THIS IS NEW SOFTWARE. IT IS STILL IN DEVELOPMENT. THE API MAY CHANGE IN FUTURE
 VERSIONS WITH NO NOTICE.*

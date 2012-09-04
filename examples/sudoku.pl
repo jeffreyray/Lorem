@@ -49,5 +49,5 @@ for my $rowx ( 0..8 ) {
     }
 }
 
-my $surface = Lorem::Surface::Pdf->new(file_name => 'sudoku.pdf', width => in2pt(8.5), height => in2pt(11) );
+my $surface = Lorem::Surface::Pdf->new(file_name => 'sudoku2.pdf', width => in2pt(8.5), height => in2pt(11) );
 $surface->print( $doc );

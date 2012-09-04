@@ -66,7 +66,7 @@ coerce LoremStyle,
 
 subtype LoremStyleBorderWidth,
     as Str,
-    where { $_ =~ /thin|medium|thick/ };
+    where { $_ =~ /\d+\.?\d*/ ||  $_ =~ /thin|medium|thick/ };
 
 subtype LoremStyleBorderStyle,
     as Str,

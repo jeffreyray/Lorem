@@ -24,18 +24,37 @@ sub _imprint_borders {
 
 sub _apply_border_style {
     my ( $self, $style ) = @_;
+    
+
+    my %widths;
+    @widths{qw/left right top bottom/} = (
+        $style->border_left_width,
+        $style->border_right_width,
+        $style->border_top_width,
+       $style->border_bottom_width,
+    );
+    
+    
+    
+    for ( qw/left right top bottom/ ) {
+        $widths{$_} = '1' if defined $widths{$_} and $widths{$_} eq 'thin';
+        $widths{$_} = '3' if defined $widths{$_} and $widths{$_} eq 'medium';
+        $widths{$_} = '4' if defined $widths{$_} and $widths{$_} eq 'thick';
+    }
+    
+    
     $self->border_left->set_color( $style->border_left_color );
     $self->border_left->set_style( $style->border_left_style );
-    $self->border_left->set_width( $style->border_left_width );
+    $self->border_left->set_width( $widths{left} );
     $self->border_right->set_color( $style->border_right_color );
     $self->border_right->set_style( $style->border_right_style );
-    $self->border_right->set_width( $style->border_right_width );
+    $self->border_right->set_width( $widths{right} );
     $self->border_top->set_color( $style->border_top_color );
     $self->border_top->set_style( $style->border_top_style );
-    $self->border_top->set_width( $style->border_top_width );
+    $self->border_top->set_width( $widths{top} );
     $self->border_bottom->set_color( $style->border_bottom_color );
     $self->border_bottom->set_style( $style->border_bottom_style );
-    $self->border_bottom->set_width( $style->border_bottom_width );
+    $self->border_bottom->set_width( $widths{bottom} );
 }
 
 sub _allocate_borders  {
@@ -49,16 +68,15 @@ sub _allocate_borders  {
     my $x4 = $x1;
     my $y4 = $y3;
     
+    $cr->set_line_cap( 'round' );
+    $cr->set_line_join( 'round' );
     
-    my $delta_left = 0;
-    #$delta_left += $self->border_left->width / 2 if $self->border_left->width;
-    #
-    $self->border_top->size_allocate ( $cr, $x1 - $delta_left, $y1, $x2, $y2 );
-    
-    
+
+    $self->border_top->size_allocate ( $cr, $x1 , $y1, $x2, $y2 );
+
     $self->border_right->size_allocate( $cr, $x2, $y2, $x3, $y3 );
     $self->border_bottom->size_allocate( $cr, $x4, $y4, $x3, $y3 );
-    $self->border_left->size_allocate( $cr, $x1 - $delta_left, $y1, $x4, $y4 );
+    $self->border_left->size_allocate( $cr, $x1, $y1, $x4, $y4 );
 }
 
 

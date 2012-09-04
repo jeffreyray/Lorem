@@ -12,6 +12,8 @@ with 'Lorem::Role::HasSizeAllocation';
 use Lorem::Constants qw( %LoremStyleBorderWidth );
 use Lorem::Types qw( LoremStyleBorderWidth LoremStyleBorderStyle LoremStyleColor );
 
+use MooseX::Types::Moose qw( Int );
+
 has 'parent' => (
     is => 'rw',
 );
@@ -52,7 +54,10 @@ sub size_allocate  {
 
 sub _cairo_width {
     my ( $self ) = @_;
-    return $LoremStyleBorderWidth{ $self->width };
+    
+    $self->width;
+    #return is_Int $self->width   ? $self->width : $LoremStyleBorderWidth{ $self->width };
+    #return $LoremStyleBorderWidth{ $self->width };
 }
 
 1;
