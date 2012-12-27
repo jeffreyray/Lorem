@@ -1,5 +1,11 @@
 Revision history for perl module Lorem
 
+{{$NEXT}}
+- build function works with pdf
+
+0.200     2012-10-03 11:42:43
+- using Dist::Zilla
+
 0.19 Tue Sep 4 2012
 - border widths now translate from words to digit value when applying the style,
 instead of when rendering the graphic
