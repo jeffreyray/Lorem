@@ -5,7 +5,20 @@ use Carp 'confess';
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT_OK = qw(in2pt pt2in escape_ampersand percent_of escape_entities escape_entity);
+our @EXPORT_OK = qw( color2rgb in2pt pt2in escape_ampersand percent_of escape_entities escape_entity);
+
+use FindBin qw($Bin);
+
+use Convert::Color::X11;
+push @Convert::Color::X11::RGB_TXT, 'share/X11/rgb.txt';
+
+
+sub color2rgb {
+    my ( $in ) = @_;
+    my $color = Convert::Color::X11->new( $in );
+    no warnings;
+    $color->as_rgb16->rgb16;
+}
 
 sub in2pt {
     my $inches = shift;

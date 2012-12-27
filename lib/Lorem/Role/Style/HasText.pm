@@ -7,6 +7,7 @@ use Lorem::Types qw(LoremStyleFontFamily LoremStyleFontStyle LoremStyleFontSize
 LoremStyleFontWeight LoremStyleFontVariant LoremStyleTextAlign LoremStyleTextAlign
 LoremStyleTextDecoration LoremStyleTextUnderline);
 
+use Lorem::Util qw( color2rgb );
 
 
 has 'font_family' => (
@@ -73,6 +74,9 @@ sub attr_list {
     $list->insert( $attr );
     
     $attr = Pango::AttrUnderline->new( $self->text_underline ) if $self->text_underline;
+    $list->insert( $attr );
+    
+    $attr = Pango::AttrForeground->new( color2rgb ( $self->color ) ) if $self->color;
     $list->insert( $attr );
     
     return $list;
