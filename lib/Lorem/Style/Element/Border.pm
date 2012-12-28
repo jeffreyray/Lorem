@@ -41,7 +41,7 @@ sub imprint {
         $cr->set_line_width( $self->_cairo_width );
         $cr->move_to( 0, 0 );
         $cr->move_to( $coords->{x1}, $coords->{y1} );
-        $cr->line_to( $coords->{x2} , $coords->{y2} );
+        $cr->line_to( $coords->{x2}, $coords->{y2} );
         $cr->stroke;
     }
 }

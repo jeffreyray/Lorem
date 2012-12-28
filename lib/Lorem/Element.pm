@@ -52,6 +52,12 @@ has 'name' => (
     default => '',
 );
 
+has 'class' => (
+    is => 'rw',
+    isa => 'Str',
+    default => '',
+);
+
 sub append_element {
     my ( $self, @elements ) = @_;
     
