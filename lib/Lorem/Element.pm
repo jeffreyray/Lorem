@@ -46,6 +46,12 @@ has 'children' => (
     }
 );
 
+has 'name' => (
+    is => 'rw',
+    isa => 'Str',
+    default => '',
+);
+
 sub append_element {
     my ( $self, @elements ) = @_;
     

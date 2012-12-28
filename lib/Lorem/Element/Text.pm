@@ -116,6 +116,10 @@ sub size_allocate {
             my $delta = $pheight - $height;
             $y += $delta / 2 ;
         }
+        if ( $self->parent->merged_style->vertical_align && $self->parent->merged_style->vertical_align eq 'bottom' && $pheight > $height ) {
+            my $delta = $pheight - $height;
+            $y += $delta;
+        }
     }
     
     my %allocation = (width => $width, height => $height, x => $x, y => $y);
